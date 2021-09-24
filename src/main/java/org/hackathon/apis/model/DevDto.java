@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 public class DevDto {
 
-    public int points;
-    public LocalDateTime actualLifeDateTime;
-    public String phraseAccompagnatrice;
+    private int points;
+    private LocalDateTime actualLifeDateTime;
+    private String phraseAccompagnatrice;
 
 }
