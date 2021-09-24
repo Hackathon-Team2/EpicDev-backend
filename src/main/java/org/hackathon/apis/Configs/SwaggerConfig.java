@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("EpicDev.BackEnd.WebApi"))
+                .apis(RequestHandlerSelectors.basePackage("org.hackathon.apis"))
                 .paths(PathSelectors.any())
                 .build();
     }
