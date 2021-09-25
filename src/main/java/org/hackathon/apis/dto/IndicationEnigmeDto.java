@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ChoixEnigmeDto {
-    private int idChoix;
-    private int isOK;
-    private String title;
+public class IndicationEnigmeDto {
+    private int idIndication;
+    private String libelle;
 }
