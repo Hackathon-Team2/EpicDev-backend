@@ -56,12 +56,14 @@ public class LevelService {
                         "Faire le tour de l'open space avec mon manager",
                         "Découvrir mon poste de travail",
                         "Aller manger");
+                break;
             case 1:
                 availableActions = Arrays.asList("Aller au daily",
                         "Aller voir mon manager",
                         "Rencontrer le lead dev du projet",
                         "Installer l'environnement de développement",
                         "Aller manger");
+                break;
             case 2:
                 availableActions = Arrays.asList("Aller au daily",
                         "Faire une réunion avec le métier",
@@ -69,18 +71,21 @@ public class LevelService {
                         "Réfléchir à une solution pour mon sujet",
                         "Développer un POC",
                         "Aller manger");
+                break;
             case 3:
                 availableActions = Arrays.asList("Aller au daily",
                         "Définir les sprints avec l'équipe",
                         "Commencer le développement du sprint 1",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 4:
                 availableActions = Arrays.asList("Aller au daily",
                         "Faire des tests unitaires",
                         "Finaliser le développement du sprint",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 5:
                 availableActions = Arrays.asList("Aller au daily",
                         "Faire des tests unitaires",
@@ -88,17 +93,20 @@ public class LevelService {
                         "Faire une communication de mise en recette",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 6:
                 availableActions = Arrays.asList("Aller au daily",
                         "Commencer le développement du sprint 2",
                         "Analyser les remontées de recette",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 7:
                 availableActions = Arrays.asList("Aller au daily",
                         "Corriger les anomalies du sprint 1",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 8:
                 availableActions = Arrays.asList("Aller au daily",
                         "Préparer la mise en prod",
@@ -106,15 +114,17 @@ public class LevelService {
                         "Faire une communication de mise en prod",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 9:
                 availableActions = Arrays.asList("Aller au daily",
                         "Support et maintien en condition opérationnelle de l'application",
                         "Aller manger",
                         "Faire une pause café");
+                break;
             case 10:
                 availableActions = Arrays.asList("Aller au daily",
-                        "Jouer à la pétanque :)",
                         "Support et MCO",
+                        "Jouer à la pétanque :)",
                         "Aller manger",
                         "Faire une pause café",
                         "Faire une astreinte");
