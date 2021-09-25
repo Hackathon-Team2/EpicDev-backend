@@ -11,7 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 public class EnigmeDto {
     private int id;
-    private String title;
-    private List<ChoixEnigmeDto> listChoix;
+    private String libelle;
+    private List<IndicationEnigmeDto> listIndications;
+    private String reponseEnigme;
     private int points;
 }
