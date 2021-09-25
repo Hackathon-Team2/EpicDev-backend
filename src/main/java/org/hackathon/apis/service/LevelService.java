@@ -1,7 +1,7 @@
 package org.hackathon.apis.service;
 
 import org.hackathon.apis.model.DevDto;
-import org.hackathon.apis.model.Level;
+import org.hackathon.apis.dto.LevelDto;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,26 +11,26 @@ import java.util.List;
 public class LevelService {
 
     DevDto devDto;
-    public List<Level> listLevels = new ArrayList<>();
+    public List<LevelDto> listLevels = new ArrayList<>();
 
     public void InitLevels(){
         EnigmeService.InitChoixEnigmes();
         EnigmeService.InitEnigmes();
-        listLevels.add(new Level(0,"découverte de l’environnement d'un dev",null));
-        listLevels.add(new Level(1,"Culture G sur un projet informatique", EnigmeService.listEnigmes.get(0)));
-        listLevels.add(new Level(2,"Analyse des besoins et dev d’un POC",null));
-        listLevels.add(new Level(3,"définition des sprints d’un projet",null));
-        listLevels.add(new Level(4,"Développement du sprint 1",null));
-        listLevels.add(new Level(5,"Préparation et mise en recette",null));
-        listLevels.add(new Level(6,"Retours recette",null));
-        listLevels.add(new Level(7,"Correction d’anomalies",null));
-        listLevels.add(new Level(8,"Préparation et mise en production",null));
-        listLevels.add(new Level(9,"MCO",null));
-        listLevels.add(new Level(10,"bonus",null));
+        listLevels.add(new LevelDto(0,"découverte de l’environnement d'un dev",null));
+        listLevels.add(new LevelDto(1,"Culture G sur un projet informatique", EnigmeService.listEnigmes.get(0)));
+        listLevels.add(new LevelDto(2,"Analyse des besoins et dev d’un POC",null));
+        listLevels.add(new LevelDto(3,"définition des sprints d’un projet",null));
+        listLevels.add(new LevelDto(4,"Développement du sprint 1",null));
+        listLevels.add(new LevelDto(5,"Préparation et mise en recette",null));
+        listLevels.add(new LevelDto(6,"Retours recette",null));
+        listLevels.add(new LevelDto(7,"Correction d’anomalies",null));
+        listLevels.add(new LevelDto(8,"Préparation et mise en production",null));
+        listLevels.add(new LevelDto(9,"MCO",null));
+        listLevels.add(new LevelDto(10,"bonus",null));
     }
 
 
-    public Level getLevel(int num){
+    public LevelDto getLevel(int num){
         switch(num){
             case 0: return listLevels.get(0);
             case 1: return listLevels.get(1);

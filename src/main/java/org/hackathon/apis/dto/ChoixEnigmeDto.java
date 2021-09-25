@@ -1,4 +1,4 @@
-package org.hackathon.apis.model;
+package org.hackathon.apis.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ChoixEnigmeDto {
-    public int idChoix;
-    public int isOK;
-    public String title;
+    private int idChoix;
+    private int isOK;
+    private String title;
 }

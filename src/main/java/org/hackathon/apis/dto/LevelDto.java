@@ -1,4 +1,4 @@
-package org.hackathon.apis.model;
+package org.hackathon.apis.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

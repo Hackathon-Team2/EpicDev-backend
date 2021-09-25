@@ -1,4 +1,4 @@
-package org.hackathon.apis.model;
+package org.hackathon.apis.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +10,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class EnigmeDto {
-    public int id;
-    public String title;
-    public List<ChoixEnigmeDto> listChoix;
-    public int points;
+    private int id;
+    private String title;
+    private List<ChoixEnigmeDto> listChoix;
+    private int points;
 }

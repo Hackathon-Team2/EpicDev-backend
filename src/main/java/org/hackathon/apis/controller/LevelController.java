@@ -1,6 +1,6 @@
 package org.hackathon.apis.controller;
 
-import org.hackathon.apis.model.Level;
+import org.hackathon.apis.dto.LevelDto;
 import org.hackathon.apis.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +19,15 @@ public class LevelController {
     * Initialisation des levels et return level 0
     * */
     @GetMapping("/Init")
-    public Level Init(){
+    public LevelDto Init(){
         levelService.InitLevels();
         return levelService.listLevels.get(0);
     }
 
     @GetMapping("/getLevelById/{levelNumber}")
-    public Level getLevelById(@PathVariable("levelNumber") int levelNumber){
-        Level level = levelService.getLevel(levelNumber);
-        return level;
+    public LevelDto getLevelById(@PathVariable("levelNumber") int levelNumber){
+        LevelDto levelDto = levelService.getLevel(levelNumber);
+        return levelDto;
     }
 
     /*
