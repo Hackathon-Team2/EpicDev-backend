@@ -2,6 +2,7 @@ package org.hackathon.apis.controller;
 
 import org.hackathon.apis.enums.TasksEnum;
 import org.hackathon.apis.model.DevDto;
+import org.hackathon.apis.service.LocationService;
 import org.hackathon.apis.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,9 @@ public class ActionController {
 
     //@Autowired
     public TasksEnum tasksEnum;
+
+    @Autowired
+    public LocationService locationService;
 
     @PostMapping("/whatDo")
     public List<String> whatToDo(DevDto devDto, List<String> levelEvents) {
@@ -65,15 +69,23 @@ public class ActionController {
         int newPoints = 0;
         actualLifeTime.plusHours(hour).plusMinutes(min);
         if (event.equals("DEV")){
+            if (!devDto.getLieuActuel().getLabel().equals("Maison") && !devDto.getLieuActuel().getLabel().equals("Open space")){
+                 locationService.goToOpenSpace(devDto);
+            }
             newPoints = ((hour*60)+min)*10;
             actualLifeTime.plusHours(hour).plusMinutes(min);
         } else if (event.equals("AFFINAGE") || event.equals("DEMO")) {
-
+            if (!devDto.getLieuActuel().getLabel().equals("Maison")){
+                locationService.goToMeetingRoom(devDto);
+            }
             int random = (int)Math.random()*50;
 
             newPoints = tasksEnum.getPointsFromStringCode(event) + ((hour*60)+min)*5 + random;
 
         } else {
+            if (!devDto.getLieuActuel().getLabel().equals("Maison") && event.equals("CAFE")){
+                locationService.goToCoffeeArea(devDto);
+            }
             newPoints = tasksEnum.getPointsFromStringCode(event);
         }
 
