@@ -1,6 +1,5 @@
 package org.hackathon.apis.controller;
 
-import org.hackathon.apis.dto.ActionsDoneLevel1Dto;
 import org.hackathon.apis.dto.ActionsDoneLevel2Dto;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.service.LevelService;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 /**
- * Controller pour les actions du level 0
+ * Controller pour les actions du level 2
  */
 @RestController
 @RequestMapping("/action/level/2")
@@ -33,7 +32,7 @@ public class ActionLevel2Controller {
     public DevDto start(DevDto devDto) {
         devDto.setTotalPoints(devDto.getTotalPoints() + devDto.getPoints());
         devDto.setPoints(0);
-        devDto.setPhraseAccompagnatrice("Niveau 1 - Culture G sur un projet informatique");
+        devDto.setPhraseAccompagnatrice("Niveau 2 - Analyse des besoins et developpement d’un POC");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(2));
         return devDto;
     }
