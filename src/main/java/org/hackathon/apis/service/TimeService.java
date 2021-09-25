@@ -34,5 +34,9 @@ public class TimeService {
         return actualLifeDate.withHour(9).withMinute(30);
     }
 
+    public LocalDateTime getMiamTime(LocalDateTime actualLifeDate) {
+        return actualLifeDate.withHour(12).withMinute(00);
+    }
+
 
 }

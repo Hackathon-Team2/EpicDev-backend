@@ -6,10 +6,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum TasksEnum {
+    AFFINAGE("AFFINAGE","Aller en réunion affinage",100),
     CAFE("CAFE","Aller en pause café",10),
     DAILY("DAILY","Aller au daily",30),
     DEMO("DEMO","Aller en démo",50),
-    DEV("DEV","Développer",0);
+    DEV("DEV","Développer",0),
+    MANGER("MANGER","Partir manger",0);
 
     public final String code;
     public final String description;
