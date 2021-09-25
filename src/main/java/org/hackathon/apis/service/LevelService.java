@@ -55,12 +55,64 @@ public class LevelService {
                         "Faire le tour de l'open space avec mon manager",
                         "Découvrir mon poste de travail",
                         "Aller manger");
+            case 1:
+                availableActions = Arrays.asList("Aller au daily",
+                        "Aller voir mon manager",
+                        "Rencontrer le lead dev du projet",
+                        "Installer l'environnement de développement",
+                        "Aller manger");
+            case 2:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 3:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 4:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 5:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 6:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 7:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 8:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 9:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+            case 10:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+
                 break;
         }
         return availableActions;
     }
 
-    public boolean isValidLevel(int levelNumber){
+    public boolean isValidLevel(DevDto devDto, int levelNumber){
         boolean verifPoints = false;
 
         switch(levelNumber){

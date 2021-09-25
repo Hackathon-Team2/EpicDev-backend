@@ -25,4 +25,6 @@ public class DevDto {
      */
     private ActionsDoneDto actionsDoneDto;
 
+    private boolean niveauSuivant = false;
+
 }

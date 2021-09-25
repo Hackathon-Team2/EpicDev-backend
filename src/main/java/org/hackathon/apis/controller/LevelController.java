@@ -1,6 +1,7 @@
 package org.hackathon.apis.controller;
 
 import org.hackathon.apis.dto.LevelDto;
+import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,11 @@ public class LevelController {
     /*
     * Vérifier la validité d'un niveau par le nombre de points collectés
     * */
+
     @GetMapping("/isValidLevel")
     public boolean isValidLevel(int levelNumber){
-        boolean validation = levelService.isValidLevel(levelNumber);
+        DevDto devDto = new DevDto();
+        boolean validation = levelService.isValidLevel(devDto,levelNumber);
         return validation;
     }
 
