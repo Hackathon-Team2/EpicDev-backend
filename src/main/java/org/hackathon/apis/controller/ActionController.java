@@ -20,7 +20,7 @@ public class ActionController {
     @Autowired
     public TimeService timeService;
 
-    @Autowired
+    //@Autowired
     public TasksEnum tasksEnum;
 
     @PostMapping("/whatDo")

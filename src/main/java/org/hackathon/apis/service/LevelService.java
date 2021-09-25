@@ -32,40 +32,52 @@ public class LevelService {
         boolean verifPoints = false;
 
         switch(levelNumber){
-            case 0: verifPoints = true;
+            case 0:
+                verifPoints = true;
+                break;
             case 1 :
                 if (devDto.getPoints() >= 500)
                     verifPoints = true;
+                break;
             case 2:
                 if (devDto.getPoints() >= 600)
                     verifPoints = true;
+                break;
             case 3:
                 if (devDto.getPoints() >= 700)
                     verifPoints = true;
+                break;
             case 4:
                 if (devDto.getPoints() >= 800)
                     verifPoints = true;
+                break;
             case 5:
                 if (devDto.getPoints() >= 900)
                     verifPoints = true;
+                break;
             case 6:
                 if (devDto.getPoints() >= 1000)
                     verifPoints = true;
+                break;
             case 7:
                 if (devDto.getPoints() >= 1100)
                     verifPoints = true;
+                break;
             case 8:
                 if (devDto.getPoints() >= 1200)
                     verifPoints = true;
+                break;
             case 9:
                 if (devDto.getPoints() >= 1300)
                     verifPoints = true;
+                break;
             case 10:
                 if (devDto.getPoints() >= 1500)
                     verifPoints = true;
+                break;
         }
 
-        if(verifPoints)
+        if(verifPoints && levelNumber != 0)
             devDto.setTotalPoints(devDto.getTotalPoints() + devDto.getPoints());
         devDto.setPoints(0);
         return verifPoints;
