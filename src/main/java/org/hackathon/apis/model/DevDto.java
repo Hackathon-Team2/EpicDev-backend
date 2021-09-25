@@ -27,4 +27,6 @@ public class DevDto {
 
     private boolean niveauSuivant = false;
 
+    private int niveauActuel;
+
 }

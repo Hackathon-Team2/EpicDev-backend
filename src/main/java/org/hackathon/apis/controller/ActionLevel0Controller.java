@@ -39,6 +39,8 @@ public class ActionLevel0Controller {
         devDto.setPhraseAccompagnatrice("Bienvenue dans l'open space ! C'est ici que tu passeras la plupart de ton temps pour travailler.");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(0));
         devDto.setActionsDoneDto(new ActionsDoneDto());
+        devDto.setNiveauSuivant(false);
+        devDto.setNiveauActuel(0);
         return devDto;
     }
 
@@ -73,11 +75,13 @@ public class ActionLevel0Controller {
                 LocalDateTime actualLifeDateTime = devDto.getActualLifeDateTime();
                 if (actualLifeDateTime.getHour() < 12) {
                     devDto.setPhraseAccompagnatrice("Patience, tu pourras aller manger à midi !");
-                }
-                if (actualLifeDateTime.getHour() > 14) {
+                } else if (actualLifeDateTime.getHour() > 14) {
                     devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
+                } else {
+                    devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues dans un bon restaurant japonais à volonté situé près des bureaux. Ca promet une après-midi productive ...");
+                    devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
+                    devDto.getActionsPossibles().remove("Aller manger");
                 }
-                devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
                 break;
 
             case "Découvrir mon poste de travail":
@@ -89,6 +93,7 @@ public class ActionLevel0Controller {
                     devDto.getActionsPossibles().add("Installer l'environnement de développement");
                     devDto.getActionsPossibles().add("Demander les accès aux applications utilisées par l'équipe");
                     devDto.getActionsPossibles().add("Lire la documentation du projet");
+                    devDto.getActionsPossibles().add("Rencontrer le lead dev du projet");
                     devDto.setPhraseAccompagnatrice("C'est bien, tu vas pouvoir te familiariser avec tes outils de travail.");
                 }
                 break;
@@ -109,10 +114,11 @@ public class ActionLevel0Controller {
                 }
                 break;
 
-            case "Demander les accès aux outils du projet":
+            case "Demander les accès aux applications utilisées par l'équipe":
                 if (!actionsFaites.isAccesDemandes()) {
                     devDto.setPhraseAccompagnatrice("Bonne initiative ! Sans tes accès Jira, impossible d'accéder au tableau agile de l'équipe. Il va aussi te falloir les accès Github pour récupérer le code et y contribuer.");
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
+                    actionsFaites.setAccesDemandes(true);
                 } else {
                     devDto.setPhraseAccompagnatrice("Tu as déjà demandé tes accès, patience ! Depuis quand est-ce que l'on obtient ses accès en moins de 3 semaines ?");
                     devDto.setPoints(devDto.getPoints() + 100);
@@ -144,12 +150,11 @@ public class ActionLevel0Controller {
         if (actualLifeTime.isBefore(actualLifeTime.withHour(17).withMinute(30))){
             devDto.setPhraseAccompagnatrice("Tu prends ton après-midi ?");
         } else {
-            // Sinon on passe à la journée suivante
+            // Sinon on passe au niveau suivant
             LocalDateTime debutJourneeSuivante = devDto.getActualLifeDateTime();
             debutJourneeSuivante = debutJourneeSuivante.withHour(9).withMinute(0);
             devDto.setActualLifeDateTime(debutJourneeSuivante);
             devDto.setPhraseAccompagnatrice("Cette première journée t'a permis d'avoir un premier contact avec tes collègues et ton futur projet. Dès demain, les choses sérieuses vont commencer !");
-
         }
         return devDto;
     }
