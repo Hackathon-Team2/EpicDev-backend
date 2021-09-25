@@ -2,6 +2,8 @@ package org.hackathon.apis.service;
 
 import org.hackathon.apis.model.DevDto;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +28,19 @@ public class LevelService {
             case 10: return "bonus";
         }
         return "bonus";
+    }
+
+    public List<String> getAvailableActionsByLevel(int level) {
+        List<String> availableActions = new ArrayList<>();
+        switch (level) {
+            case 0:
+                availableActions = Arrays.asList("Aller voir mon manager",
+                        "Faire le tour de l'open space avec mon manager",
+                        "Découvrir mon poste de travail",
+                        "Aller manger");
+                break;
+        }
+        return availableActions;
     }
 
     public boolean isValidLevel(int levelNumber){

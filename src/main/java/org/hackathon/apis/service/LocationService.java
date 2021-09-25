@@ -2,7 +2,9 @@ package org.hackathon.apis.service;
 
 import org.hackathon.apis.dto.LocationDto;
 import org.hackathon.apis.model.DevDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LocationService {
 
     public void goToOpenSpace(DevDto devDto) {
