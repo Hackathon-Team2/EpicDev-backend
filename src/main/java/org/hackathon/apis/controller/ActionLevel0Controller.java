@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Controller pour les actions du level 0
  */
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/action/level/0")
 public class ActionLevel0Controller {
