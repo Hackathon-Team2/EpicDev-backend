@@ -34,7 +34,6 @@ public class LevelController {
     /*
     * Vérifier la validité d'un niveau par le nombre de points collectés
     * */
-
     @GetMapping("/isValidLevel")
     public boolean isValidLevel(int levelNumber){
         DevDto devDto = new DevDto();

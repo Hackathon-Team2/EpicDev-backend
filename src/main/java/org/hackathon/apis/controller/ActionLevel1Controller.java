@@ -1,7 +1,6 @@
 package org.hackathon.apis.controller;
 
 import org.hackathon.apis.dto.ActionsDoneLevel1Dto;
-import org.hackathon.apis.dto.LocationDto;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.service.LevelService;
 import org.hackathon.apis.service.LocationService;
@@ -10,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.time.LocalDateTime;
 
 /**
- * Controller pour les actions du level 0
+ * Controller pour les actions du level 1
  */
 @RestController
 @RequestMapping("/action/level/1")

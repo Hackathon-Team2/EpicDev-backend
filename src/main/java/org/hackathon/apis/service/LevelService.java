@@ -1,6 +1,5 @@
 package org.hackathon.apis.service;
 
-import org.hackathon.apis.dto.EnigmeDto;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.dto.LevelDto;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class LevelService {
         listLevels.add(new LevelDto(1,"Culture G sur un projet informatique", EnigmeService.listEnigmes.get(0)));
         listLevels.add(new LevelDto(2,"Analyse des besoins et dev d’un POC",EnigmeService.listEnigmes.get(5)));
         listLevels.add(new LevelDto(3,"définition des sprints d’un projet",null));
-        listLevels.add(new LevelDto(4,"Développement du sprint 1",EnigmeService.listEnigmes.get(2)));
+        listLevels.add(new LevelDto(4,"Développement d'un sprint",EnigmeService.listEnigmes.get(2)));
         listLevels.add(new LevelDto(5,"Préparation et mise en recette", EnigmeService.listEnigmes.get(1)));
         listLevels.add(new LevelDto(6,"Retours recette",null));
         listLevels.add(new LevelDto(7,"Correction d’anomalies",EnigmeService.listEnigmes.get(4)));
@@ -64,50 +63,61 @@ public class LevelService {
                         "Installer l'environnement de développement",
                         "Aller manger");
             case 2:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
+                availableActions = Arrays.asList("Aller au daily",
+                        "Faire une réunion avec le métier",
+                        "Finaliser les configs de mon environnement de dev",
+                        "Réfléchir à une solution pour mon sujet",
+                        "Développer un POC",
                         "Aller manger");
             case 3:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Définir les sprints avec l'équipe",
+                        "Commencer le développement du sprint 1",
+                        "Aller manger",
+                        "Faire une pause café");
             case 4:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Faire des tests unitaires",
+                        "Finaliser le développement du sprint",
+                        "Aller manger",
+                        "Faire une pause café");
             case 5:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Faire des tests unitaires",
+                        "Déploiement en recette",
+                        "Faire une communication de mise en recette",
+                        "Aller manger",
+                        "Faire une pause café");
             case 6:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Commencer le développement du sprint 2",
+                        "Analyser les remontées de recette",
+                        "Aller manger",
+                        "Faire une pause café");
             case 7:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Corriger les anomalies du sprint 1",
+                        "Aller manger",
+                        "Faire une pause café");
             case 8:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Préparer la mise en prod",
+                        "Déploiement en production",
+                        "Faire une communication de mise en prod",
+                        "Aller manger",
+                        "Faire une pause café");
             case 9:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Support et maintien en condition opérationnelle de l'application",
+                        "Aller manger",
+                        "Faire une pause café");
             case 10:
-                availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                availableActions = Arrays.asList("Aller au daily",
+                        "Jouer à la pétanque :)",
+                        "Support et MCO",
+                        "Aller manger",
+                        "Faire une pause café",
+                        "Faire une astreinte");
 
                 break;
         }
