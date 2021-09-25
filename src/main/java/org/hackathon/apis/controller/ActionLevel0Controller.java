@@ -8,6 +8,7 @@ import org.hackathon.apis.service.LevelService;
 import org.hackathon.apis.service.LocationService;
 import org.hackathon.apis.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import java.util.List;
 /**
  * Controller pour les actions du level 0
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/action/level/0")
 public class ActionLevel0Controller {
