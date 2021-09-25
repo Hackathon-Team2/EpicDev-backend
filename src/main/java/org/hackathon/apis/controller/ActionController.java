@@ -67,18 +67,18 @@ public class ActionController {
 
         LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
         int newPoints = 0;
-        actualLifeTime.plusHours(hour).plusMinutes(min);
+        actualLifeTime = actualLifeTime.plusHours(hour).plusMinutes(min);
         if (event.equals("DEV")){
             if (!devDto.getLieuActuel().getLabel().equals("Maison") && !devDto.getLieuActuel().getLabel().equals("Open space")){
                  locationService.goToOpenSpace(devDto);
             }
             newPoints = ((hour*60)+min)*10;
-            actualLifeTime.plusHours(hour).plusMinutes(min);
+            actualLifeTime = actualLifeTime.plusHours(hour).plusMinutes(min);
         } else if (event.equals("AFFINAGE") || event.equals("DEMO")) {
             if (!devDto.getLieuActuel().getLabel().equals("Maison")){
                 locationService.goToMeetingRoom(devDto);
             }
-            int random = (int)Math.random()*50;
+            int random = (int)(Math.random()*50);
 
             newPoints = tasksEnum.getPointsFromStringCode(event) + ((hour*60)+min)*5 + random;
 
@@ -90,6 +90,8 @@ public class ActionController {
         }
 
         devDto.setPoints(devDto.getPoints()+newPoints);
+
+        devDto.setActualLifeDateTime(actualLifeTime);
 
         return devDto;
     }
