@@ -1,5 +1,6 @@
 package org.hackathon.apis.service;
 
+import org.hackathon.apis.dto.EnigmeDto;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.dto.LevelDto;
 import org.springframework.stereotype.Service;
@@ -18,16 +19,17 @@ public class LevelService {
         EnigmeService.InitEnigmes();
         listLevels.add(new LevelDto(0,"découverte de l’environnement d'un dev",null));
         listLevels.add(new LevelDto(1,"Culture G sur un projet informatique", EnigmeService.listEnigmes.get(0)));
-        listLevels.add(new LevelDto(2,"Analyse des besoins et dev d’un POC",null));
+        listLevels.add(new LevelDto(2,"Analyse des besoins et dev d’un POC",EnigmeService.listEnigmes.get(5)));
         listLevels.add(new LevelDto(3,"définition des sprints d’un projet",null));
-        listLevels.add(new LevelDto(4,"Développement du sprint 1",null));
-        listLevels.add(new LevelDto(5,"Préparation et mise en recette",null));
+        listLevels.add(new LevelDto(4,"Développement du sprint 1",EnigmeService.listEnigmes.get(2)));
+        listLevels.add(new LevelDto(5,"Préparation et mise en recette", EnigmeService.listEnigmes.get(1)));
         listLevels.add(new LevelDto(6,"Retours recette",null));
-        listLevels.add(new LevelDto(7,"Correction d’anomalies",null));
+        listLevels.add(new LevelDto(7,"Correction d’anomalies",EnigmeService.listEnigmes.get(4)));
         listLevels.add(new LevelDto(8,"Préparation et mise en production",null));
-        listLevels.add(new LevelDto(9,"MCO",null));
+        listLevels.add(new LevelDto(9,"MCO",EnigmeService.listEnigmes.get(3)));
         listLevels.add(new LevelDto(10,"bonus",null));
     }
+
 
 
     public LevelDto getLevel(int num){
