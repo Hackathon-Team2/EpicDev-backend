@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class DevDto {
 
+    public int totalPoints;
     public int points;
     public LocalDateTime actualLifeDateTime;
     public String phraseAccompagnatrice;

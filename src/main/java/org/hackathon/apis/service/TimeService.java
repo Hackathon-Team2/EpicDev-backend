@@ -30,5 +30,9 @@ public class TimeService {
         return actualLifeDate.toString();
     }
 
+    public LocalDateTime getDailyTime(LocalDateTime actualLifeDate) {
+        return actualLifeDate.withHour(9).withMinute(30);
+    }
+
 
 }
