@@ -1,22 +1,16 @@
 package org.hackathon.apis.controller;
 
-import org.hackathon.apis.dto.ActionsDoneLevel0Dto;
+import org.hackathon.apis.dto.ActionRequestBody;
+import org.hackathon.apis.dto.ActionsDoneDto;
 import org.hackathon.apis.dto.LocationDto;
-import org.hackathon.apis.enums.TasksEnum;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.service.LevelService;
 import org.hackathon.apis.service.LocationService;
 import org.hackathon.apis.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller pour les actions du level 0
@@ -38,26 +32,28 @@ public class ActionLevel0Controller {
     @PostMapping("/start")
     public DevDto start(DevDto devDto) {
         LocalDateTime dateDebut = LocalDateTime.now().withHour(9).withMinute(0);
-        DevDto devDtoInit = new DevDto();
-        devDtoInit.setLieuActuel(new LocationDto("Open space", ""));
-        devDtoInit.setActualLifeDateTime(dateDebut);
+        devDto.setLieuActuel(new LocationDto("Open space", ""));
+        devDto.setActualLifeDateTime(dateDebut);
         devDto.setPoints(0);
         devDto.setTotalPoints(0);
         devDto.setPhraseAccompagnatrice("Bienvenue dans l'open space ! C'est ici que tu passeras la plupart de ton temps pour travailler.");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(0));
+        devDto.setActionsDoneDto(new ActionsDoneDto());
         return devDto;
     }
 
     @PostMapping("/doAction")
-    public DevDto doAction(DevDto devDto, String action) {
-        ActionsDoneLevel0Dto actionsFaites = (ActionsDoneLevel0Dto) devDto.getActionsDoneDto();
-        switch (action) {
+    public DevDto doAction(@RequestBody ActionRequestBody actionRequestBody) {
+        DevDto devDto = actionRequestBody.getDevDto();
+        ActionsDoneDto actionsFaites = devDto.getActionsDoneDto();
+        switch (actionRequestBody.getAction()) {
             case "Aller voir mon manager":
                 if (!actionsFaites.isManagerRencontre()) {
                     devDto.setPhraseAccompagnatrice("Ton nouveau manager est ravi de t'accueillir. Il te présente rapidement le projet et l'équipe, mais tu auras l'occasion d'en savoir plus à ces sujets plus tard.");
                     devDto.setPoints(devDto.getPoints() + 100);
                     devDto.getActionsPossibles().remove("Aller voir mon manager");
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
+                    actionsFaites.setManagerRencontre(true);
                 }
                 break;
 
@@ -67,6 +63,9 @@ public class ActionLevel0Controller {
                     devDto.setPoints(devDto.getPoints() + 100);
                     devDto.getActionsPossibles().remove("Faire le tour de l'open space avec mon manager");
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
+                    actionsFaites.setTourOpenSpaceFait(true);
+                } else {
+                    devDto.setPhraseAccompagnatrice("Tu devrais d'abord saluer ton manager, c'est ton premier jour quand même !");
                 }
                 break;
 
