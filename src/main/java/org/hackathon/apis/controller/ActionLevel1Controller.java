@@ -1,6 +1,5 @@
 package org.hackathon.apis.controller;
 
-import org.hackathon.apis.dto.ActionsDoneLevel0Dto;
 import org.hackathon.apis.dto.ActionsDoneLevel1Dto;
 import org.hackathon.apis.dto.LocationDto;
 import org.hackathon.apis.model.DevDto;
