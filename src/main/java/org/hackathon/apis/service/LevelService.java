@@ -1,8 +1,8 @@
 package org.hackathon.apis.service;
 
 import org.hackathon.apis.model.DevDto;
+import org.hackathon.apis.model.Level;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,24 +10,41 @@ import java.util.List;
 @Service
 public class LevelService {
 
-    public List<Integer> listLevels = Arrays.asList(0,1,2,3,4,5,6,7,8,9,10);
     DevDto devDto;
+    public List<Level> listLevels = new ArrayList<>();
 
-    public String getLevelTitle(int num){
+    public void InitLevels(){
+        EnigmeService.InitChoixEnigmes();
+        EnigmeService.InitEnigmes();
+        listLevels.add(new Level(0,"découverte de l’environnement d'un dev",null));
+        listLevels.add(new Level(1,"Culture G sur un projet informatique", EnigmeService.listEnigmes.get(0)));
+        listLevels.add(new Level(2,"Analyse des besoins et dev d’un POC",null));
+        listLevels.add(new Level(3,"définition des sprints d’un projet",null));
+        listLevels.add(new Level(4,"Développement du sprint 1",null));
+        listLevels.add(new Level(5,"Préparation et mise en recette",null));
+        listLevels.add(new Level(6,"Retours recette",null));
+        listLevels.add(new Level(7,"Correction d’anomalies",null));
+        listLevels.add(new Level(8,"Préparation et mise en production",null));
+        listLevels.add(new Level(9,"MCO",null));
+        listLevels.add(new Level(10,"bonus",null));
+    }
+
+
+    public Level getLevel(int num){
         switch(num){
-            case 0: return "découverte de l’environnement d'un dev";
-            case 1: return "Culture G sur un projet informatique ";
-            case 2: return "Analyse des besoins et dev d’un POC";
-            case 3: return "définition des sprints d’un projet";
-            case 4: return "Développement du sprint 1";
-            case 5: return "Préparation et mise en recette ";
-            case 6: return "Retours recette";
-            case 7: return "Correction d’anomalies";
-            case 8: return "Préparation et mise en production";
-            case 9: return "MCO";
-            case 10: return "bonus";
+            case 0: return listLevels.get(0);
+            case 1: return listLevels.get(1);
+            case 2: return listLevels.get(2);
+            case 3: return listLevels.get(3);
+            case 4: return listLevels.get(4);
+            case 5: return listLevels.get(5);
+            case 6: return listLevels.get(6);
+            case 7: return listLevels.get(7);
+            case 8: return listLevels.get(8);
+            case 9: return listLevels.get(9);
+            case 10: return listLevels.get(10);
         }
-        return "bonus";
+        return null;
     }
 
     public List<String> getAvailableActionsByLevel(int level) {

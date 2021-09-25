@@ -1,5 +1,6 @@
 package org.hackathon.apis.controller;
 
+import org.hackathon.apis.model.Level;
 import org.hackathon.apis.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,19 @@ public class LevelController {
     @Autowired
     private LevelService levelService;
 
+    /*
+    * Initialisation des levels et return level 0
+    * */
+    @GetMapping("/Init")
+    public Level Init(){
+        levelService.InitLevels();
+        return levelService.listLevels.get(0);
+    }
+
     @GetMapping("/getLevelById/{levelNumber}")
-    public String getLevelById(@PathVariable("levelNumber") int levelNumber){
-        String levelTitle = levelService.getLevelTitle(levelNumber);
-        return levelTitle;
+    public Level getLevelById(@PathVariable("levelNumber") int levelNumber){
+        Level level = levelService.getLevel(levelNumber);
+        return level;
     }
 
     /*
@@ -25,8 +35,6 @@ public class LevelController {
     * */
     @GetMapping("/isValidLevel")
     public boolean isValidLevel(int levelNumber){
-        if(!levelService.listLevels.contains(levelNumber))
-            return false;
         boolean validation = levelService.isValidLevel(levelNumber);
         return validation;
     }

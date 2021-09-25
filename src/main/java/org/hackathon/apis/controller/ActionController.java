@@ -24,7 +24,7 @@ public class ActionController {
     //@Autowired
     public TasksEnum tasksEnum;
 
-    @Autowired
+    //@Autowired
     public LocationService locationService;
 
     @PostMapping("/whatDo")
