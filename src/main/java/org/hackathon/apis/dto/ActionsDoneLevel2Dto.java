@@ -9,11 +9,13 @@ public class ActionsDoneLevel2Dto extends ActionsDoneDto {
 
     private boolean daily = false;
 
-    private boolean leadDevRencontre = false;
+    private boolean reunionMetier = false;
 
-    private boolean lireDoc = false;
+    private boolean finaliserConfigEnvironnement = false;
 
-    private boolean environnementDeveloppementInstalle;
+    private boolean reflechirSolution = false;
 
-    private boolean accesDemandes;
+    private boolean developperPoc = false;
+
+    private boolean allerManger = false;
 }

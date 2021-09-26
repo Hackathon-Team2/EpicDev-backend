@@ -51,7 +51,7 @@ public class ActionLevel3Controller {
 
             case "Aller au daily":
                 if (!actionsFaites.isDaily()) {
-                    devDto.setPhraseAccompagnatrice("Tes collègues et toi se mettent en rond devant une télévision. Amusé par cet attroupement, tu commences à fredonner...Sur le pont d'Avignon, on y danse tous en rond..../n Néanmoins ton manager te remarque et te prie de te concentrer.");
+                    devDto.setPhraseAccompagnatrice("Et hop, petit point journalier du matin pour discuter des sujets en cours.");
                     devDto.setPoints(devDto.getPoints() + 50);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                     devDto.getActionsPossibles().remove("Aller au daily");

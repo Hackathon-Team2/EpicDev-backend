@@ -53,24 +53,27 @@ public class LevelService {
         switch (level) {
             case 0:
                 availableActions = Arrays.asList("Aller voir mon manager",
-                        "Faire le tour de l'open space avec mon manager",
-                        "Découvrir mon poste de travail",
-                        "Aller manger");
+                        "Faire le tour de l'open space",
+                        "Aller manger",
+                        "Jouer au démineur",
+                        "Découvrir mon poste de travail");
                 break;
             case 1:
                 availableActions = Arrays.asList("Aller au daily",
                         "Aller voir mon manager",
                         "Rencontrer le lead dev du projet",
+                        "Aller manger",
                         "Installer l'environnement de développement",
-                        "Aller manger");
+                        "Lire la documentation du projet");
                 break;
             case 2:
                 availableActions = Arrays.asList("Aller au daily",
                         "Faire une réunion avec le métier",
                         "Finaliser les configs de mon environnement de dev",
+                        "Aller manger",
                         "Réfléchir à une solution pour mon sujet",
-                        "Développer un POC",
-                        "Aller manger");
+                        "Développer un POC"
+                        );
                 break;
             case 3:
                 availableActions = Arrays.asList("Aller au daily",
