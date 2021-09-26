@@ -35,7 +35,7 @@ public class ActionLevel4Controller {
         devDto.setActualLifeDateTime(dateDebut);
         devDto.setTotalPoints(devDto.getTotalPoints() + devDto.getPoints());
         devDto.setPoints(0);
-        devDto.setPhraseAccompagnatrice("Niveau 1 - Culture G sur un projet informatique");
+        devDto.setPhraseAccompagnatrice("Niveau 4 - Ecriture de tests unitaires");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(4));
         devDto.setNiveauActuel(4);
         devDto.setNiveauSuivant(false);
@@ -75,7 +75,7 @@ public class ActionLevel4Controller {
                     } else if (actualLifeDateTime.getHour() > 14) {
                         devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
                     } else {
-                        devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues dans un bon restaurant japonais à volonté situé près des bureaux. Ca promet une après-midi productive ...");
+                        devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues un poke bowl, parce qu'il faut bien prendre soin de sa ligne ! Je te rappelle que tu as été au Jap' hier.");
                         actionsFaites.setAllerManger(true);
                         devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
                     }
@@ -85,47 +85,22 @@ public class ActionLevel4Controller {
                 }
                 break;
 
-            case "Jouer au démineur":
-                devDto.setPhraseAccompagnatrice("Et non, nous ne sommes pas à La Poste ici, il faut travailler !");
-                devDto.setPoints(devDto.getPoints() - 50);
+            case "Faire des tests unitaires":
+                devDto.setPhraseAccompagnatrice("Parfait ! Tester n'est pas douter, c'est éviter des régressions futures et vérifier que tout fonctionne comme il faut.");
+                devDto.setPoints(devDto.getPoints() + 150);
+                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 3, 00));
                 break;
 
-            case "Installer l'environnement de développement":
-                if (!actionsFaites.isEnvironnementDeveloppementInstalle()) {
-                    devDto.setPhraseAccompagnatrice("Ne pouvant accéder à aucune ressource réseau, tes collègues viennent te porter secours Pour que tu es accès à tout");
-                    devDto.setPoints(devDto.getPoints() + 100);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà installé ton environnement de développement.");
-                }
-                break;
-
-            case "Demander les accès aux outils du projet":
-                if (!actionsFaites.isAccesDemandes()) {
-                    devDto.setPhraseAccompagnatrice("Bonne initiative ! Sans tes accès Jira, impossible d'accéder au tableau agile de l'équipe. Il va aussi te falloir les accès Github pour récupérer le code et y contribuer.");
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà demandé tes accès, patience ! Depuis quand est-ce que l'on obtient ses accès en moins de 3 semaines ?");
-                    devDto.setPoints(devDto.getPoints() + 100);
-                }
-                break;
-
-            case "Lire la documentation du projet":
-                devDto.setPhraseAccompagnatrice("C'est bien, tu pourras comprendre l'architecture du projet et son fonctionnement afin d'attaquer plus sereinement les développements.");
+            case "Finaliser le développement du sprint":
+                devDto.setPhraseAccompagnatrice("Ton collègue t'a fait remarquer une petite erreur dans ton code. Pas grave, vaillant comme tu es, tu la corriges en un rien de temps. Et paf, ça fait du code qui marche !");
                 devDto.setPoints(devDto.getPoints() + 100);
-                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
+                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 break;
 
-            case "Discuter avec le lead dev du projet":
-                if (!actionsFaites.isLeadDevRencontre()) {
-                    devDto.setPhraseAccompagnatrice("Le lead Dev te présente la stack technique et l'architecture du projet pour que tu comprennes bien comment tout fonctionne.");
-                    devDto.setPoints(devDto.getPoints() + 50);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                    devDto.getActionsPossibles().remove("Discuter avec le lead dev du projet");
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
-
-                }
+            case "Faire une pause café":
+                devDto.setPhraseAccompagnatrice("Tu te fais un bon café pour tenir jusqu'à la fin de la journée ! Cela te permet de discuter un peu avec tes collègues et être au courant de l'avancée des autres projets de l'entreprise.");
+                devDto.setPoints(devDto.getPoints() + 100);
+                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 break;
         }
 
