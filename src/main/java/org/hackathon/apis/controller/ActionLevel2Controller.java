@@ -147,9 +147,9 @@ public class ActionLevel2Controller {
             devDto.setActualLifeDateTime(debutJourneeSuivante);
             devDto.setPhraseAccompagnatrice("La journée s'achève!");
             devDto.setNiveauSuivant(true);
-            if(levelService.isValidLevel(devDto,2)){
-                devDto.setNiveauSuivant(true);
-            }
+//            if(levelService.isValidLevel(devDto,2)){
+//                devDto.setNiveauSuivant(true);
+//            }
 
         }
         return devDto;

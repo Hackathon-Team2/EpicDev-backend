@@ -145,12 +145,10 @@ public class ActionLevel1Controller {
             LocalDateTime debutJourneeSuivante = devDto.getActualLifeDateTime();
             debutJourneeSuivante = debutJourneeSuivante.withHour(9).withMinute(0);
             devDto.setActualLifeDateTime(debutJourneeSuivante);
-            devDto.setPhraseAccompagnatrice("La journée s'achève!");
             devDto.setNiveauSuivant(true);
-            //Passage au niveau supérieur ?
-            if(levelService.isValidLevel(devDto,1)){
-                devDto.setNiveauSuivant(true);
-            }
+//            if(levelService.isValidLevel(devDto,1)){
+//                devDto.setNiveauSuivant(true);
+//            }
         }
         return devDto;
     }
