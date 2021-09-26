@@ -29,13 +29,16 @@ public class ActionLevel3Controller {
     @Autowired
     private LevelService levelService;
 
+    private boolean isFinJournee;
+
     @PostMapping("/startLevel")
     public DevDto start(DevDto devDto) {
         LocalDateTime dateDebut = LocalDateTime.now().withHour(9).withMinute(0);
         devDto.setActualLifeDateTime(dateDebut);
         devDto.setTotalPoints(devDto.getTotalPoints() + devDto.getPoints());
+        isFinJournee = false;
         devDto.setPoints(0);
-        devDto.setPhraseAccompagnatrice("Niveau 1 - Culture G sur un projet informatique");
+        devDto.setPhraseAccompagnatrice("Niveau 3 - définition des sprints d’un projet");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(3));
         devDto.setNiveauActuel(3);
         devDto.setNiveauSuivant(false);
@@ -56,14 +59,20 @@ public class ActionLevel3Controller {
         switch (actionRequestBody.getAction()) {
 
             case "Aller au daily":
-                if (!actionsFaites.isDaily()) {
+                if (!actionsFaites.isDaily() && !isFinJournee) {
                     devDto.setPhraseAccompagnatrice("Et hop, petit point journalier du matin pour discuter des sujets en cours.");
                     devDto.setPoints(devDto.getPoints() + 50);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
-                    devDto.getActionsPossibles().remove("Aller au daily");
+                    actionsFaites.setDaily(true);
+                    LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
+                    if (actualLifeTime.isAfter(actualLifeTime.withHour(17).withMinute(30)))
+                        this.isFinJournee = true;
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
-
+                    if (isFinJournee)
+                        devDto.setPhraseAccompagnatrice("STOP -_- la journée s'achève, il est temps de rentrer !");
+                    else
+                        devDto.setPhraseAccompagnatrice("Tu as déjà assisté au daily. \nOui, ça va très vite une journée !");
+                    devDto.setPoints(devDto.getPoints() - 50);
                 }
                 break;
 
@@ -90,42 +99,45 @@ public class ActionLevel3Controller {
                 devDto.setPoints(devDto.getPoints() - 50);
                 break;
 
-            case "Installer l'environnement de développement":
-                if (!actionsFaites.isEnvironnementDeveloppementInstalle()) {
-                    devDto.setPhraseAccompagnatrice("Ne pouvant accéder à aucune ressource réseau, tes collègues viennent te porter secours Pour que tu es accès à tout");
-                    devDto.setPoints(devDto.getPoints() + 100);
+            case "Définir les sprints avec l'équipe":
+                if (!actionsFaites.isDefinirSprints() && !isFinJournee) {
+                    devDto.setPhraseAccompagnatrice("Ayant déjà fait la connaissance de toute l'équipe, tu n'hésitera pas à proposer tes idées et poser des questions");
+                    devDto.setPoints(devDto.getPoints() + 200);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
+                    actionsFaites.setDefinirSprints(true);
+                    LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
+                    if (actualLifeTime.isAfter(actualLifeTime.withHour(17).withMinute(30)))
+                        this.isFinJournee = true;
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà installé ton environnement de développement.");
+                    if (isFinJournee)
+                        devDto.setPhraseAccompagnatrice("STOP -_- la journée s'achève, il est temps de rentrer !");
+                    else
+                        devDto.setPhraseAccompagnatrice("Tu as déjà fait la réunion.");
+                    devDto.setPoints(devDto.getPoints() - 50);
                 }
                 break;
 
-            case "Demander les accès aux outils du projet":
-                if (!actionsFaites.isAccesDemandes()) {
-                    devDto.setPhraseAccompagnatrice("Bonne initiative ! Sans tes accès Jira, impossible d'accéder au tableau agile de l'équipe. Il va aussi te falloir les accès Github pour récupérer le code et y contribuer.");
+            case "Commencer le développement du sprint 1":
+                if (!actionsFaites.isDevPremierSprint() && !isFinJournee) {
+                    devDto.setPhraseAccompagnatrice("Les choses sérieusent commencent ! tu vas bien t'amuser à développant le sprint 1 :)");
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
+                    devDto.setPoints(devDto.getPoints() + 300);
+                    actionsFaites.setDevPremierSprint(true);
+                    LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
+                    if (actualLifeTime.isAfter(actualLifeTime.withHour(17).withMinute(30)))
+                        this.isFinJournee = true;
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà demandé tes accès, patience ! Depuis quand est-ce que l'on obtient ses accès en moins de 3 semaines ?");
-                    devDto.setPoints(devDto.getPoints() + 100);
+                    if (isFinJournee)
+                        devDto.setPhraseAccompagnatrice("STOP -_- la journée s'achève, il est temps de rentrer !");
+                    else
+                        devDto.setPhraseAccompagnatrice("Le sprint 1 est déjà développé, c'est l'heure de la mise en recette !");
+                    devDto.setPoints(devDto.getPoints() - 50);
                 }
                 break;
 
-            case "Lire la documentation du projet":
-                devDto.setPhraseAccompagnatrice("C'est bien, tu pourras comprendre l'architecture du projet et son fonctionnement afin d'attaquer plus sereinement les développements.");
-                devDto.setPoints(devDto.getPoints() + 100);
-                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                break;
-
-            case "Discuter avec le lead dev du projet":
-                if (!actionsFaites.isLeadDevRencontre()) {
-                    devDto.setPhraseAccompagnatrice("Le lead Dev te présente la stack technique et l'architecture du projet pour que tu comprennes bien comment tout fonctionne.");
-                    devDto.setPoints(devDto.getPoints() + 50);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                    devDto.getActionsPossibles().remove("Discuter avec le lead dev du projet");
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
-
-                }
+            case "Faire une pause café":
+                devDto.setPhraseAccompagnatrice("Après un travail acharné, une pause café est bien méritée !");
+                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 break;
         }
 
@@ -145,11 +157,10 @@ public class ActionLevel3Controller {
             LocalDateTime debutJourneeSuivante = devDto.getActualLifeDateTime();
             debutJourneeSuivante = debutJourneeSuivante.withHour(9).withMinute(0);
             devDto.setActualLifeDateTime(debutJourneeSuivante);
-            devDto.setPhraseAccompagnatrice("La journée s'achève!");
             devDto.setNiveauSuivant(true);
-            if(levelService.isValidLevel(devDto,3)){
-                devDto.setNiveauSuivant(true);
-            }
+//            if(levelService.isValidLevel(devDto,3)){
+//                devDto.setNiveauSuivant(true);
+//            }
 
         }
         return devDto;

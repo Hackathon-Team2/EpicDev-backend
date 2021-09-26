@@ -30,4 +30,15 @@ public class ActionsDoneDto {
     private boolean reflechirSolution = false;
 
     private boolean communicationMiseEnRecette = false;
+
+    private boolean definirSprints = false;
+
+    private boolean devPremierSprint = false;
+
+    private boolean faireTU = false;
+
+    private boolean finaliserDevSprint = false;
+
+    private boolean depRecette = false;
+
 }
