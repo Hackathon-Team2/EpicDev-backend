@@ -30,10 +30,13 @@ public class ActionLevel0Controller {
     @Autowired
     private LevelService levelService;
 
+    private boolean isFinJournee;
+
     @PostMapping("/start")
     public DevDto start(DevDto devDto) {
         LocalDateTime dateDebut = LocalDateTime.now().withHour(9).withMinute(0);
         devDto.setActualLifeDateTime(dateDebut);
+        isFinJournee = false;
         devDto.setPoints(0);
         devDto.setTotalPoints(0);
         devDto.setPhraseAccompagnatrice("Bienvenue dans l'open space ! C'est ici que tu passeras la plupart de ton temps pour travailler.");
@@ -50,24 +53,36 @@ public class ActionLevel0Controller {
         ActionsDoneDto actionsFaites = devDto.getActionsDoneDto();
         switch (actionRequestBody.getAction()) {
             case "Aller voir mon manager":
-                if (!actionsFaites.isManagerRencontre()) {
+                if (!actionsFaites.isManagerRencontre() && !isFinJournee) {
                     devDto.setPhraseAccompagnatrice("Ton nouveau manager est ravi de t'accueillir. Il te présente rapidement le projet et l'équipe, mais tu auras l'occasion d'en savoir plus à ces sujets plus tard.");
                     devDto.setPoints(devDto.getPoints() + 100);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 30));
                     actionsFaites.setManagerRencontre(true);
+                    LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
+                    if (actualLifeTime.isAfter(actualLifeTime.withHour(17).withMinute(30)))
+                        this.isFinJournee = true;
                 } else {
-                    devDto.setPhraseAccompagnatrice("Quelque chose qui n'est pas clair pour toi ?");
+                    if (isFinJournee)
+                        devDto.setPhraseAccompagnatrice("STOP -_- la journée s'achève, il est temps de rentrer !");
+                    else
+                        devDto.setPhraseAccompagnatrice("Quelque chose qui n'est pas clair pour toi ?");
                 }
                 break;
 
             case "Faire le tour de l'open space":
-                if (actionsFaites.isManagerRencontre()) {
+                if (actionsFaites.isManagerRencontre() && !isFinJournee) {
                     devDto.setPhraseAccompagnatrice("Ton manager te fait découvrir tes collègues, les différentes équipes de travail et l'agencement de l'open space. Tu te présentes brièvement devant ta future équipe, ils sont ravis de t'accueillir.");
                     devDto.setPoints(devDto.getPoints() + 100);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
                     actionsFaites.setTourOpenSpaceFait(true);
+                    LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
+                    if (actualLifeTime.isAfter(actualLifeTime.withHour(17).withMinute(30)))
+                        this.isFinJournee = true;
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu devrais d'abord saluer ton manager, c'est ton premier jour quand même !");
+                    if (isFinJournee)
+                        devDto.setPhraseAccompagnatrice("STOP -_- la journée s'achève, il est temps de rentrer !");
+                    else
+                        devDto.setPhraseAccompagnatrice("Tu devrais d'abord saluer ton manager, c'est ton premier jour quand même !");
                     devDto.setPoints(devDto.getPoints() - 50);
                 }
                 break;
@@ -91,7 +106,7 @@ public class ActionLevel0Controller {
                 break;
 
             case "Découvrir mon poste de travail":
-                if (!actionsFaites.isDecouvrirPosteTravail()) {
+                if (!actionsFaites.isDecouvrirPosteTravail() && !isFinJournee) {
                     if(!actionsFaites.isManagerRencontre()){
                         devDto.setPhraseAccompagnatrice("Tu devrais d'abord rencontrer ton manager et faire connaissance avec les gens autour de toi.");
                         devDto.setPoints(devDto.getPoints() - 50);
@@ -99,10 +114,19 @@ public class ActionLevel0Controller {
                         devDto.setPhraseAccompagnatrice("C'est bien, tu vas pouvoir te familiariser avec tes outils de travail.");
                         devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
                         actionsFaites.setDecouvrirPosteTravail(true);
+                        LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
+                        if (actualLifeTime.isAfter(actualLifeTime.withHour(17).withMinute(30)))
+                            this.isFinJournee = true;
                     }
                 } else {
-                    devDto.setPhraseAccompagnatrice("Ne t'inquiète pas, ça va venir avec le temps !");
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
+                    if (isFinJournee){
+                        devDto.setPhraseAccompagnatrice("STOP -_- la journée s'achève, il est temps de rentrer !");
+                        devDto.setPoints(devDto.getPoints() - 50);
+                    }
+                    else{
+                        devDto.setPhraseAccompagnatrice("Ne t'inquiète pas, ça va venir avec le temps !");
+                        devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
+                    }
                 }
                 break;
 
@@ -127,7 +151,6 @@ public class ActionLevel0Controller {
             LocalDateTime debutJourneeSuivante = devDto.getActualLifeDateTime();
             debutJourneeSuivante = debutJourneeSuivante.withHour(9).withMinute(0);
             devDto.setActualLifeDateTime(debutJourneeSuivante);
-            devDto.setPhraseAccompagnatrice("Cette première journée t'a permis d'avoir un premier contact avec tes collègues et ton futur projet. Dès demain, les choses sérieuses vont commencer !");
             devDto.setNiveauSuivant(true);
         }
         return devDto;
