@@ -2,6 +2,7 @@ package org.hackathon.apis.controller;
 
 import org.hackathon.apis.dto.ActionRequestBody;
 import org.hackathon.apis.dto.ActionsDoneDto;
+import org.hackathon.apis.dto.DevDtoBodyParam;
 import org.hackathon.apis.dto.LocationDto;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.service.LevelService;
@@ -143,7 +144,8 @@ public class ActionLevel0Controller {
     }
 
     @PostMapping("/finishDay")
-    public DevDto finishDay(DevDto devDto){
+    public DevDto finishDay(@RequestBody DevDtoBodyParam devDtoBodyParam){
+        DevDto devDto = devDtoBodyParam.getDevDto();
         LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
 
         // S'il n'est pas encore 17h30, on empêche de finir
