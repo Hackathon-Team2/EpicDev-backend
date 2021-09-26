@@ -1,19 +1,21 @@
 package org.hackathon.apis.controller;
 
-import org.hackathon.apis.dto.ActionsDoneLevel1Dto;
+import org.hackathon.apis.dto.ActionRequestBody;
+import org.hackathon.apis.dto.ActionsDoneDto;
+import org.hackathon.apis.dto.DevDtoBodyParam;
 import org.hackathon.apis.model.DevDto;
 import org.hackathon.apis.service.LevelService;
 import org.hackathon.apis.service.LocationService;
 import org.hackathon.apis.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDateTime;
 
 /**
  * Controller pour les actions du level 1
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/action/level/1")
 public class ActionLevel1Controller {
@@ -29,10 +31,15 @@ public class ActionLevel1Controller {
 
     @PostMapping("/startLevel")
     public DevDto start(DevDto devDto) {
+        LocalDateTime dateDebut = LocalDateTime.now().withHour(9).withMinute(0);
+        devDto.setActualLifeDateTime(dateDebut);
         devDto.setTotalPoints(devDto.getTotalPoints() + devDto.getPoints());
         devDto.setPoints(0);
         devDto.setPhraseAccompagnatrice("Niveau 1 - Culture G sur un projet informatique");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(1));
+        devDto.setNiveauActuel(1);
+        devDto.setNiveauSuivant(false);
+        devDto.setActionsDoneDto(new ActionsDoneDto());
         return devDto;
     }
     @PostMapping("/startAgain")
@@ -43,13 +50,14 @@ public class ActionLevel1Controller {
     }
 
     @PostMapping("/doAction")
-    public DevDto doAction(DevDto devDto, String action) {
-        ActionsDoneLevel1Dto actionsFaites = (ActionsDoneLevel1Dto) devDto.getActionsDoneDto();
-        switch (action) {
+    public DevDto doAction(@RequestBody ActionRequestBody actionRequestBody) {
+        DevDto devDto = actionRequestBody.getDevDto();
+        ActionsDoneDto actionsFaites = devDto.getActionsDoneDto();
+        switch (actionRequestBody.getAction()) {
 
             case "Aller au daily":
                 if (!actionsFaites.isDaily()) {
-                    devDto.setPhraseAccompagnatrice("Tes collègues et toi se mettent en rond devant une télévision. Amusé par cet attroupement, tu commences à fredonner...Sur le pont d'Avignon, on y danse tous en rond..../n Néanmoins ton manager te remarque et te prie de te concentrer.");
+                    devDto.setPhraseAccompagnatrice("Tes collègues et toi se mettent en rond devant une télévision. Amusé par cet attroupement, tu commences à fredonner...Sur le pont d'Avignon, on y danse tous en rond....\n Néanmoins ton manager te remarque et te prie de te concentrer.");
                     devDto.setPoints(devDto.getPoints() + 50);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                     devDto.getActionsPossibles().remove("Aller au daily");
@@ -126,7 +134,8 @@ public class ActionLevel1Controller {
     }
 
     @PostMapping("/finishDay")
-    public DevDto finishDay(DevDto devDto){
+    public DevDto finishDay(@RequestBody DevDtoBodyParam devDtoBodyParam){
+        DevDto devDto = devDtoBodyParam.getDevDto();
         LocalDateTime actualLifeTime = devDto.getActualLifeDateTime();
 
         // S'il n'est pas encore 17h30, on empêche de finir
@@ -138,6 +147,7 @@ public class ActionLevel1Controller {
             debutJourneeSuivante = debutJourneeSuivante.withHour(9).withMinute(0);
             devDto.setActualLifeDateTime(debutJourneeSuivante);
             devDto.setPhraseAccompagnatrice("La journée s'achève!");
+            devDto.setNiveauSuivant(true);
             //Passage au niveau supérieur ?
             if(levelService.isValidLevel(devDto,1)){
                 devDto.setNiveauSuivant(true);

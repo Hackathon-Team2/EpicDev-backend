@@ -33,7 +33,6 @@ public class ActionLevel0Controller {
     @PostMapping("/start")
     public DevDto start(DevDto devDto) {
         LocalDateTime dateDebut = LocalDateTime.now().withHour(9).withMinute(0);
-        devDto.setLieuActuel(new LocationDto("Open space", ""));
         devDto.setActualLifeDateTime(dateDebut);
         devDto.setPoints(0);
         devDto.setTotalPoints(0);
@@ -126,6 +125,7 @@ public class ActionLevel0Controller {
             debutJourneeSuivante = debutJourneeSuivante.withHour(9).withMinute(0);
             devDto.setActualLifeDateTime(debutJourneeSuivante);
             devDto.setPhraseAccompagnatrice("Cette première journée t'a permis d'avoir un premier contact avec tes collègues et ton futur projet. Dès demain, les choses sérieuses vont commencer !");
+            devDto.setNiveauSuivant(true);
         }
         return devDto;
     }
