@@ -53,7 +53,7 @@ public class ActionLevel0Controller {
                 if (!actionsFaites.isManagerRencontre()) {
                     devDto.setPhraseAccompagnatrice("Ton nouveau manager est ravi de t'accueillir. Il te présente rapidement le projet et l'équipe, mais tu auras l'occasion d'en savoir plus à ces sujets plus tard.");
                     devDto.setPoints(devDto.getPoints() + 100);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 30));
                     actionsFaites.setManagerRencontre(true);
                 } else {
                     devDto.setPhraseAccompagnatrice("Quelque chose qui n'est pas clair pour toi ?");
