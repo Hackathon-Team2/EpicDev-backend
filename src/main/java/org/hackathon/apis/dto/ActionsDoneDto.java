@@ -9,6 +9,10 @@ public class ActionsDoneDto {
 
     private boolean tourOpenSpaceFait = false;
 
+    private boolean decouvrirPosteTravail = false;
+
+    private boolean allerManger = false;
+
     private boolean environnementDeveloppementInstalle;
 
     private boolean accesDemandes;

@@ -50,25 +50,30 @@ public class ActionLevel2Controller {
 
             case "Aller au daily":
                 if (!actionsFaites.isDaily()) {
-                    devDto.setPhraseAccompagnatrice("Tes collègues et toi se mettent en rond devant une télévision. Amusé par cet attroupement, tu commences à fredonner...Sur le pont d'Avignon, on y danse tous en rond..../n Néanmoins ton manager te remarque et te prie de te concentrer.");
+                    devDto.setPhraseAccompagnatrice("Et hop, petit point journalier du matin pour discuter des sujets en cours.");
                     devDto.setPoints(devDto.getPoints() + 50);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
-                    devDto.getActionsPossibles().remove("Aller au daily");
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
-
+                    devDto.setPhraseAccompagnatrice("Tu as déjà assisté au daily. \nOui, ça va très vite une journée !");
                 }
                 break;
 
             case "Aller manger":
-                LocalDateTime actualLifeDateTime = devDto.getActualLifeDateTime();
-                if (actualLifeDateTime.getHour() < 12) {
-                    devDto.setPhraseAccompagnatrice("Patience, tu pourras aller manger à midi !");
-                }
-                if (actualLifeDateTime.getHour() > 14) {
+                if (!actionsFaites.isAllerManger()){
+                    LocalDateTime actualLifeDateTime = devDto.getActualLifeDateTime();
+                    if (actualLifeDateTime.getHour() < 12) {
+                        devDto.setPhraseAccompagnatrice("Patience, tu pourras aller manger à midi !");
+                    } else if (actualLifeDateTime.getHour() > 14) {
+                        devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
+                    } else {
+                        devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues dans un bon restaurant japonais à volonté situé près des bureaux. Ca promet une après-midi productive ...");
+                        actionsFaites.setAllerManger(true);
+                        devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
+                    }
+                }else{
                     devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
+                    devDto.setPoints(devDto.getPoints() - 50);
                 }
-                devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
                 break;
 
             case "Jouer au démineur":
@@ -77,41 +82,43 @@ public class ActionLevel2Controller {
                 devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 break;
 
-            case "Installer l'environnement de développement":
-                if (!actionsFaites.isEnvironnementDeveloppementInstalle()) {
-                    devDto.setPhraseAccompagnatrice("Ne pouvant accéder à aucune ressource réseau, tes collègues viennent te porter secours Pour que tu es accès à tout");
+            case "Faire une réunion avec le métier":
+                if (!actionsFaites.isReunionMetier()) {
+                    devDto.setPhraseAccompagnatrice("Nouvellement arrivé, on t'invite à une réunion avec le métier, d'une part pour faire leurs connaissances, et d'autre part, comprendre et discuter autour du besoin.");
                     devDto.setPoints(devDto.getPoints() + 100);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà installé ton environnement de développement.");
+                    devDto.setPhraseAccompagnatrice("Tu as déjà fait la réunion avec le métier.");
                 }
                 break;
 
-            case "Demander les accès aux outils du projet":
-                if (!actionsFaites.isAccesDemandes()) {
-                    devDto.setPhraseAccompagnatrice("Bonne initiative ! Sans tes accès Jira, impossible d'accéder au tableau agile de l'équipe. Il va aussi te falloir les accès Github pour récupérer le code et y contribuer.");
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà demandé tes accès, patience ! Depuis quand est-ce que l'on obtient ses accès en moins de 3 semaines ?");
+            case "Finaliser les configs de mon environnement de dev":
+                if (!actionsFaites.isFinaliserConfigEnvironnement()) {
+                    devDto.setPhraseAccompagnatrice("C'est vrai que c'est pénible les configs d'environnements :(, mais ça te fera une bonne chose de faite :)");
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 30));
                     devDto.setPoints(devDto.getPoints() + 100);
+                } else {
+                    devDto.setPhraseAccompagnatrice("Tu as déjà finalisé les configs de ton environnement, il est temps de s'y mettre au dev !");
                 }
                 break;
 
-            case "Lire la documentation du projet":
-                devDto.setPhraseAccompagnatrice("C'est bien, tu pourras comprendre l'architecture du projet et son fonctionnement afin d'attaquer plus sereinement les développements.");
-                devDto.setPoints(devDto.getPoints() + 100);
-                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
+            case "Réfléchir à une solution pour mon sujet":
+                if(!actionsFaites.isReflechirSolution()){
+                    devDto.setPhraseAccompagnatrice("“Le sage réfléchit avant d'agir.”");
+                    devDto.setPoints(devDto.getPoints() + 150);
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
+                } else {
+                    devDto.setPhraseAccompagnatrice("C'est bien de réfléchir mais le temps presse ! \nLes bonnes idées viennent en développant ;)");
+                }
                 break;
 
-            case "Discuter avec le lead dev du projet":
-                if (!actionsFaites.isLeadDevRencontre()) {
-                    devDto.setPhraseAccompagnatrice("Le lead Dev te présente la stack technique et l'architecture du projet pour que tu comprennes bien comment tout fonctionne.");
-                    devDto.setPoints(devDto.getPoints() + 50);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                    devDto.getActionsPossibles().remove("Discuter avec le lead dev du projet");
+            case "Développer un POC":
+                if (!actionsFaites.isDevelopperPoc()) {
+                    devDto.setPhraseAccompagnatrice("Enfin du dev ! tu vas pouvoir t'amuser un peu ;)");
+                    devDto.setPoints(devDto.getPoints() + 200);
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 3, 0));
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
-
+                    devDto.setPhraseAccompagnatrice("Tu as déjà développé le POC, il faut passer aux choses sérieuses maintenant !");
                 }
                 break;
         }
