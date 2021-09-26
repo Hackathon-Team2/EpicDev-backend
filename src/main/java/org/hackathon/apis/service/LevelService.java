@@ -95,9 +95,9 @@ public class LevelService {
                 break;
             case 5:
                 availableActions = Arrays.asList("Aller au daily",
-                        "Faire des tests unitaires",
-                        "Déploiement en recette",
+                        "Vérifier la qualité du code",
                         "Faire une communication de mise en recette",
+                        "Déploiement en recette",
                         "Aller manger",
                         "Faire une pause café");
                 break;

@@ -35,7 +35,7 @@ public class ActionLevel5Controller {
         devDto.setActualLifeDateTime(dateDebut);
         devDto.setTotalPoints(devDto.getTotalPoints() + devDto.getPoints());
         devDto.setPoints(0);
-        devDto.setPhraseAccompagnatrice("Niveau 1 - Culture G sur un projet informatique");
+        devDto.setPhraseAccompagnatrice("Niveau 5 - Déploiement et recette");
         devDto.setActionsPossibles(levelService.getAvailableActionsByLevel(5));
         devDto.setNiveauActuel(5);
         devDto.setNiveauSuivant(false);
@@ -62,7 +62,7 @@ public class ActionLevel5Controller {
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                     devDto.getActionsPossibles().remove("Aller au daily");
                 } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
+                    devDto.setPhraseAccompagnatrice("");
 
                 }
                 break;
@@ -75,7 +75,7 @@ public class ActionLevel5Controller {
                     } else if (actualLifeDateTime.getHour() > 14) {
                         devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
                     } else {
-                        devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues dans un bon restaurant japonais à volonté situé près des bureaux. Ca promet une après-midi productive ...");
+                        devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues dans un restaurant javanais situé près des bureaux. Finalement tu n'as pas vraiment aimé !");
                         actionsFaites.setAllerManger(true);
                         devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
                     }
@@ -85,47 +85,35 @@ public class ActionLevel5Controller {
                 }
                 break;
 
-            case "Jouer au démineur":
-                devDto.setPhraseAccompagnatrice("Et non, nous ne sommes pas à La Poste ici, il faut travailler !");
-                devDto.setPoints(devDto.getPoints() - 50);
+            case "Vérifier la qualité du code":
+                devDto.setPhraseAccompagnatrice("Très bien ! Tu utilises l'outiul Sonar pour vérifier la qualité du code que tu as écrit.");
+                devDto.setPoints(devDto.getPoints() + 150);
+                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 30));
                 break;
 
-            case "Installer l'environnement de développement":
-                if (!actionsFaites.isEnvironnementDeveloppementInstalle()) {
-                    devDto.setPhraseAccompagnatrice("Ne pouvant accéder à aucune ressource réseau, tes collègues viennent te porter secours Pour que tu es accès à tout");
+            case "Faire une communication de mise en recette":
+                if (!actionsFaites.isCommunicationMiseEnRecette()) {
+                    devDto.setPhraseAccompagnatrice("Très bien, la communication c'est la base ! Comme ça, tout le monde est au courant.");
                     devDto.setPoints(devDto.getPoints() + 100);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 00));
+                    devDto.getActionsDoneDto().setCommunicationMiseEnRecette(true);
                 } else {
                     devDto.setPhraseAccompagnatrice("Tu as déjà installé ton environnement de développement.");
                 }
                 break;
 
-            case "Demander les accès aux outils du projet":
+            case "Déploiement en recette":
                 if (!actionsFaites.isAccesDemandes()) {
-                    devDto.setPhraseAccompagnatrice("Bonne initiative ! Sans tes accès Jira, impossible d'accéder au tableau agile de l'équipe. Il va aussi te falloir les accès Github pour récupérer le code et y contribuer.");
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déjà demandé tes accès, patience ! Depuis quand est-ce que l'on obtient ses accès en moins de 3 semaines ?");
-                    devDto.setPoints(devDto.getPoints() + 100);
+                    devDto.setPhraseAccompagnatrice("La tension est à son comble, tu t'apprêtes à déployer ton code... Et le déploiement est un succès !");
+                    devDto.setPoints(devDto.getPoints() + 250);
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 30));
                 }
                 break;
 
-            case "Lire la documentation du projet":
-                devDto.setPhraseAccompagnatrice("C'est bien, tu pourras comprendre l'architecture du projet et son fonctionnement afin d'attaquer plus sereinement les développements.");
-                devDto.setPoints(devDto.getPoints() + 100);
+            case "Faire une pause café":
+                devDto.setPhraseAccompagnatrice("Tu recharges tes accus avec un bon café avec tes collègues");
+                devDto.setPoints(devDto.getPoints() + 50);
                 devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                break;
-
-            case "Discuter avec le lead dev du projet":
-                if (!actionsFaites.isLeadDevRencontre()) {
-                    devDto.setPhraseAccompagnatrice("Le lead Dev te présente la stack technique et l'architecture du projet pour que tu comprennes bien comment tout fonctionne.");
-                    devDto.setPoints(devDto.getPoints() + 50);
-                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                    devDto.getActionsPossibles().remove("Discuter avec le lead dev du projet");
-                } else {
-                    devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
-
-                }
                 break;
         }
 

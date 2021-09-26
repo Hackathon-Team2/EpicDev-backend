@@ -28,4 +28,6 @@ public class ActionsDoneDto {
     private boolean developperPoc = false;
 
     private boolean reflechirSolution = false;
+
+    private boolean communicationMiseEnRecette = false;
 }
