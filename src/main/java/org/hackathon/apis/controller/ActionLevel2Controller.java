@@ -86,7 +86,6 @@ public class ActionLevel2Controller {
             case "Jouer au démineur":
                 devDto.setPhraseAccompagnatrice("Et non, nous ne sommes pas à La Poste ici, il faut travailler !");
                 devDto.setPoints(devDto.getPoints() - 50);
-                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 break;
 
             case "Faire une réunion avec le métier":

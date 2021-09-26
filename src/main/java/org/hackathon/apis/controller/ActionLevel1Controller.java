@@ -122,7 +122,6 @@ public class ActionLevel1Controller {
                     devDto.setPhraseAccompagnatrice("Le lead Dev te présente la stack technique et l'architecture du projet pour que tu comprennes bien comment tout fonctionne.");
                     devDto.setPoints(devDto.getPoints() + 50);
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 2, 0));
-                    devDto.getActionsPossibles().remove("Discuter avec le lead dev du projet");
                 } else {
                     devDto.setPhraseAccompagnatrice("Tu as déja rencontré le lead dev, n'aurais-tu pas une certaine attirance pour ce jeune homme ? ;)");
 
@@ -152,7 +151,6 @@ public class ActionLevel1Controller {
             if(levelService.isValidLevel(devDto,1)){
                 devDto.setNiveauSuivant(true);
             }
-
         }
         return devDto;
     }

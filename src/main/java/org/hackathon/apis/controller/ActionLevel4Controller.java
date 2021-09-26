@@ -68,20 +68,26 @@ public class ActionLevel4Controller {
                 break;
 
             case "Aller manger":
-                LocalDateTime actualLifeDateTime = devDto.getActualLifeDateTime();
-                if (actualLifeDateTime.getHour() < 12) {
-                    devDto.setPhraseAccompagnatrice("Patience, tu pourras aller manger à midi !");
-                }
-                if (actualLifeDateTime.getHour() > 14) {
+                if (!actionsFaites.isAllerManger()){
+                    LocalDateTime actualLifeDateTime = devDto.getActualLifeDateTime();
+                    if (actualLifeDateTime.getHour() < 12) {
+                        devDto.setPhraseAccompagnatrice("Patience, tu pourras aller manger à midi !");
+                    } else if (actualLifeDateTime.getHour() > 14) {
+                        devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
+                    } else {
+                        devDto.setPhraseAccompagnatrice("Tu vas manger avec tes collègues dans un bon restaurant japonais à volonté situé près des bureaux. Ca promet une après-midi productive ...");
+                        actionsFaites.setAllerManger(true);
+                        devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
+                    }
+                }else{
                     devDto.setPhraseAccompagnatrice("Ce n'est pas un peu tard pour aller manger ?");
+                    devDto.setPoints(devDto.getPoints() - 50);
                 }
-                devDto.setActualLifeDateTime(devDto.getActualLifeDateTime().withHour(14).withMinute(0));
                 break;
 
             case "Jouer au démineur":
                 devDto.setPhraseAccompagnatrice("Et non, nous ne sommes pas à La Poste ici, il faut travailler !");
                 devDto.setPoints(devDto.getPoints() - 50);
-                devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 break;
 
             case "Installer l'environnement de développement":

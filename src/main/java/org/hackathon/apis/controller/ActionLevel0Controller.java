@@ -56,7 +56,7 @@ public class ActionLevel0Controller {
                     devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
                     actionsFaites.setManagerRencontre(true);
                 } else {
-                    devDto.setPhraseAccompagnatrice("");
+                    devDto.setPhraseAccompagnatrice("Quelque chose qui n'est pas clair pour toi ?");
                 }
                 break;
 
@@ -68,6 +68,7 @@ public class ActionLevel0Controller {
                     actionsFaites.setTourOpenSpaceFait(true);
                 } else {
                     devDto.setPhraseAccompagnatrice("Tu devrais d'abord saluer ton manager, c'est ton premier jour quand même !");
+                    devDto.setPoints(devDto.getPoints() - 50);
                 }
                 break;
 
@@ -96,10 +97,12 @@ public class ActionLevel0Controller {
                         devDto.setPoints(devDto.getPoints() - 50);
                     } else{
                         devDto.setPhraseAccompagnatrice("C'est bien, tu vas pouvoir te familiariser avec tes outils de travail.");
+                        devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 1, 0));
                         actionsFaites.setDecouvrirPosteTravail(true);
                     }
                 } else {
                     devDto.setPhraseAccompagnatrice("Ne t'inquiète pas, ça va venir avec le temps !");
+                    devDto.setActualLifeDateTime(timeService.addTimeToDate(devDto.getActualLifeDateTime(), 0, 30));
                 }
                 break;
 

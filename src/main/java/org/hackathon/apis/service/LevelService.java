@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class LevelService {
@@ -50,6 +51,8 @@ public class LevelService {
 
     public List<String> getAvailableActionsByLevel(int level) {
         List<String> availableActions = new ArrayList<>();
+        List<String> temp;
+        Random rand = new Random();
         switch (level) {
             case 0:
                 availableActions = Arrays.asList("Aller voir mon manager",
@@ -64,7 +67,8 @@ public class LevelService {
                         "Rencontrer le lead dev du projet",
                         "Aller manger",
                         "Installer l'environnement de développement",
-                        "Lire la documentation du projet");
+                        "Lire la documentation du projet",
+                        "Demander les accès aux outils du projet");
                 break;
             case 2:
                 availableActions = Arrays.asList("Aller au daily",
@@ -134,6 +138,18 @@ public class LevelService {
 
                 break;
         }
+
+        // Un petit random par ici !
+        temp = new ArrayList<>(availableActions);
+        for(int i=0; i < availableActions.size(); i++){
+            int newPos = rand.nextInt(availableActions.size());
+            while(newPos == i || temp.get(newPos) == null){
+                newPos = rand.nextInt(availableActions.size());
+            }
+            availableActions.set(i, temp.get(newPos));
+            temp.set(newPos,null);
+        }
+
         return availableActions;
     }
 
